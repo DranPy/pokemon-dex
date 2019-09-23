@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "@selleo/react"
+  ],
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "info",
+          "error"
+        ]
+      }
+    ],
+    "no-debugger": "off"
+  }
+}
