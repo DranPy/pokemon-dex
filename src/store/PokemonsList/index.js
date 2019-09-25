@@ -1,6 +1,6 @@
 import keyBy from 'lodash/keyBy'
 
-import { FETCH_POKEMONS } from './actionTypes'
+import { FETCH_POKEMONS_LIST } from './actionTypes'
 
 const initialState = {
   byName: {},
@@ -8,7 +8,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_POKEMONS: {
+    case FETCH_POKEMONS_LIST: {
       return {
         ...state,
         byName: keyBy(payload, 'name'),

@@ -1,0 +1,28 @@
+.pokemon-list
+    height: 100vh
+    overflow: auto
+    padding: 0 15px
+    border-right: 1px solid #eee
+
+    &__title
+        text-transform: uppercase
+        margin:
+            top: 10px
+            bottom: 10px
+
+    &__search
+        margin-bottom: 8px
+        padding: 8px 16px
+        width: 100%
+    
+    &__pokemon
+        margin-bottom: 10px
+    
+    &__pokemon:not(:last-child)
+        border-bottom: 1px solid #eee
+
+    &__pokemon-trigger
+        +btn-reset(10px 16px)
+        text-transform: capitalize
+        // text-align: left
+        width: 100%

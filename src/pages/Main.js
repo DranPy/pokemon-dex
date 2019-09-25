@@ -1,110 +1,42 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import humps from 'humps'
-import cn from 'classnames'
-import Fuse from 'fuse.js'
 
-import { fetchPokemons } from 'store/Pokemons/actions'
-import { getPokemons } from 'store/Pokemons/selector'
-import api from 'utils/api'
+import { fetchPokemonsList } from 'store/PokemonsList/actions'
+import { getPokemonsList } from 'store/PokemonsList/selector'
+import { fetchPokemon } from 'store/Pokemon/actions'
+import { getPokemon, isPokemonLoading } from 'store/Pokemon/selector'
+
+import PokemonCard from 'components/PokemonCard'
+import PokemonsList from 'components/PokemonsList'
 
 class Main extends Component {
-  state = {
-    pokemon: null,
-    query: '',
+  static propTypes = {
+    pokemon: PropTypes.object.isRequired,
+    isPokemonLoading: PropTypes.bool.isRequired,
+    pokemonsList: PropTypes.array.isRequired,
+    fetchPokemon: PropTypes.func.isRequired,
+    fetchPokemonsList: PropTypes.func.isRequired,
+    fetchPokemonEvolution: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    this.props.fetchPokemons()
-    console.log(api)
-  }
-
-  handleShowPokemonDetails = name => {
-    api.getPokemonByName(name).then(resp => this.setState({ pokemon: humps.camelizeKeys(resp) }))
-  }
-
-  handleSearch = event => this.setState({ query: event.target.value })
-
-  getFilteredList = list => {
-    const { query } = this.state
-    const options = {
-      threshold: 0,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: ['name'],
-    }
-    const fuse = new Fuse(list, options)
-    const filteredList = query ? fuse.search(query) : list
-
-    return filteredList
+    this.props.fetchPokemonsList()
   }
 
   render() {
-    const { pokemons } = this.props
-    const { pokemon } = this.state
-
-    const filteredList = this.getFilteredList(pokemons)
-
-    if (pokemon === null && pokemons.length > 0) {
-      this.handleShowPokemonDetails(pokemons[0].name)
-    }
+    const { pokemonsList, pokemon, isPokemonLoading, fetchPokemon } = this.props
 
     return (
       <div className="pokemon-dex">
-        <div className="pokemon-list">
-          <h3 className="pokemon-list__title">Pokemons list</h3>
-          <input
-            className="pokemon-list__search"
-            onChange={this.handleSearch}
-            placeholder="Search by name"
-            type="text"
-          />
-          {filteredList.map(pokemon => (
-            <div className="pokemon-list__pokemon" key={pokemon.url}>
-              <button
-                className="pokemon-list__pokemon-trigger"
-                onClick={() => this.handleShowPokemonDetails(pokemon.name)}
-              >
-                {pokemon.name}
-              </button>
-            </div>
-          ))}
-        </div>
-        {pokemon && (
+        <PokemonsList onPokemonClick={fetchPokemon} pokemonsList={pokemonsList} />
+        {pokemonsList.length > 0 && (
           <div className="pokemon-info">
-            <div className="pokemon-card">
-              <img
-                alt="pokemon images"
-                className="pokemon-card__img"
-                src={pokemon.sprites.frontDefault}
-              />
-              <h3 className="pokemon-card__name">{pokemon.name}</h3>
-              <div className="pokemon-card__id">#{pokemon.id}</div>
-              <div className="pokemon-card__types">
-                {pokemon.types.map(item => (
-                  <div
-                    className={cn('pokemon-card__type', `-${item.type.name}`)}
-                    key={item.type.url}
-                  >
-                    {item.type.name}
-                  </div>
-                ))}
-              </div>
-              <div className="pokemon-card__size">
-                weight {pokemon.weight} x height {pokemon.height}
-              </div>
-              <hr />
-              <div className="pokemon-card__stats">
-                {pokemon.stats.map(({ baseStat, stat }) => (
-                  <div className="pokemon-card__stat" key={stat.url}>
-                    {stat.name} - {baseStat}
-                    <div className="pokemon-card__stat-rate" style={{ width: `${baseStat}px` }} />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <PokemonCard
+              fetchPokemon={() => fetchPokemon(pokemonsList[0].name)}
+              isPokemonLoading={isPokemonLoading}
+              pokemon={pokemon}
+            />
           </div>
         )}
       </div>
@@ -113,11 +45,14 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  pokemons: getPokemons(state),
+  pokemonsList: getPokemonsList(state),
+  pokemon: getPokemon(state),
+  isPokemonLoading: isPokemonLoading(state),
 })
 
 const mapDispatchToProps = {
-  fetchPokemons,
+  fetchPokemonsList,
+  fetchPokemon,
 }
 
 export default connect(
