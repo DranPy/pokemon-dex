@@ -1,0 +1,122 @@
+.pokemon-dex
+    display: flex
+
+.pokemon-list
+    height: 100vh
+    overflow: auto
+    padding: 0 15px
+    border-right: 1px solid #eee
+
+    &__title
+        text-transform: uppercase
+        margin:
+            top: 10px
+            bottom: 10px
+
+    &__search
+        margin-bottom: 8px
+        padding: 8px 16px
+    
+    &__pokemon
+        margin-bottom: 10px
+    
+    &__pokemon:not(:last-child)
+        border-bottom: 1px solid #eee
+
+    &__pokemon-trigger
+        +btn-reset(10px 16px)
+        text-transform: capitalize
+        // text-align: left
+        width: 100%
+    
+.pokemon-info
+    flex: 1 0 auto
+    padding: 20px
+
+.pokemon-card
+    position: relative
+    padding: 20px
+    display: inline-block
+    box-shadow: 0px 0px 7px 3px #ddd
+    border-radius: 5px
+
+    &__name
+        text-transform: capitalize
+        text-align: center
+
+    &__types
+        display: flex
+        justify-content: center
+        margin-bottom: 10px
+
+    &__type:not(:last-child)
+        margin:
+            right: 10px
+
+    &__type
+        color: #eee
+        padding: 5px
+        border-radius: 3px
+
+        &.-poison
+            background-color: #b77ecc
+        
+        &.-grass
+            background-color: #9ccd4d
+
+        &.-fire
+            background-color: #a55651
+        
+        &.-water
+            background-color: #4c81c4
+
+        &.-bug
+            background-color: #148400
+
+        &.-normal
+            background-color: #a7aab0
+
+        &.-electric
+            background-color: #4815d9
+
+        &.-pshychic
+            background-color: #f862b8
+
+        &.-rock
+            background-color: #8696a9
+
+        &.-dragon
+            background-color: #4815d9
+
+        &.-fighting
+            background-color: #d4661e
+
+        &.-flying
+            background-color: #3fc8f1
+
+        &.-ground
+            background-color: #af9641
+
+        &.-fairy
+            background-color: #c5b56e
+
+    &__size
+        text-align: center
+
+    &__stat
+        margin-bottom: 5px
+        text-transform: uppercase
+        
+    &__stat-rate
+        height: 5px
+        background-color: #efae54
+
+    &__id
+        position: absolute
+        top: 10px
+        right: 10px
+        font:
+            size: 50px
+            weight: bold
+        color: #f3f3f3
+        

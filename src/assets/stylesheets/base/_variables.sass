@@ -1,0 +1,81 @@
+//----- fonts sizes and line-heights -----------------------------------------------------------------------------------
+$font-size-xl:                    25px
+$font-size-lg:                    20px
+$font-size-base:                  16px
+$font-size-sm:                    14px
+$font-size-xs:                    13px
+
+$line-height-base:                1.25
+$line-height-sm:                  1
+$line-height-lg:                  1.5
+
+$letter-spacing-base:             .5px
+$letter-spacing-lg:               1px
+
+//----- spacings (margins/paddings) ------------------------------------------------------------------------------------
+$m-base:                          24px
+$m-xs:                            $m-base / 3
+$m-sm:                            $m-base / 3 * 2
+$m-lg:                            $m-base + $m-xs
+$m-xl:                            $m-base * 2
+
+//----- border radiuses ------------------------------------------------------------------------------------------------
+$border-radius-base:              8px
+$border-radius-sm:                6px
+$border-radius-lg:                50px
+
+//----- breakpoints ----------------------------------------------------------------------------------------------------
+$grid-breakpoints:                (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+
+$grid-columns:                    12
+$grid-gutter-width:               $m-base
+
+$container:                       map-get($grid-breakpoints, xl)
+
+//----- colors ---------------------------------------------------------------------------------------------------------
+$brand-primary:                   #17bf64
+$brand-success:                   #17bf64
+$brand-warning:                   #FFA900
+$brand-danger:                    #e62a2a
+
+$color-black:                     hsl(211, 32%, 13%)
+$color-gray-darker:               hsl(0, 0%, 20%)
+$color-gray-dark:                 hsl(0, 0%, 40%)
+$color-gray:                      hsl(0, 0%, 80%)
+$color-gray-light:                hsl(0, 0%, 87%)
+$color-gray-lighter:              hsl(0, 0%, 95%)
+$color-white:                     #ffffff
+
+$placeholder-color:               $color-gray
+
+//----- fonts ----------------------------------------------------------------------------------------------------------
+$font-family:                     'larabiefont'
+$font-stack:                      $font-family, sans-serif
+
+$font-weight-regular:             400
+$font-weight-bold:                700
+$font-weight-black:               900
+
+$icon-size:                       20px
+
+//----- layout ---------------------------------------------------------------------------------------------------------
+$offline-padding:                 $m-xs
+$offline-line-height:             $m-sm
+$offline-height:                  $offline-line-height + ($offline-padding * 2)
+
+//----- transitions ----------------------------------------------------------------------------------------------------
+$transition-duration:             .3s
+$transition-function:              cubic-bezier(.1, 0, .1, 1)
+
+//----- toastify overrides ---------------------------------------------------------------------------------------------
+$rt-color-success:                $brand-success
+$rt-color-error:                  $brand-danger
+$rt-toast-min-height:             $m-base + $m-sm
+$rt-font-family:                  $font-stack
+
+//----- z-indexes ------------------------------------------------------------------------------------------------------
+$z-negative:                      -1
+$z-low:                           100
+$z-middle:                        200
+$z-high:                          300
+$z-higher:                        400

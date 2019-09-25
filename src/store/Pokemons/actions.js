@@ -6,5 +6,8 @@ export const fetchPokemonsActions = data => ({
   payload: data,
 })
 
-export const fetchPokemons = options => dispatch =>
-  api.getPokemonsList(options).then(({ results }) => dispatch(fetchPokemonsActions(results)))
+export const fetchPokemons = options => async dispatch => {
+  const pokemonList = await api.getPokemonsList(options)
+  // const pokemons = await api.resou
+  dispatch(fetchPokemonsActions(pokemonList.results))
+}
