@@ -1,10 +1,4 @@
-// import keyBy from 'lodash/keyBy'
-
-import {
-  FETCH_POKEMON_REQUEST,
-  FETCH_POKEMON_SUCCEEDED,
-  FETCH_POKEMON_EVOLUTION,
-} from './actionTypes'
+import { FETCH_POKEMON_REQUEST, FETCH_POKEMON_SUCCEEDED, FETCH_POKEMON_FEILED } from './actionTypes'
 
 const initialState = {
   isLoading: true,
@@ -22,17 +16,20 @@ export default (state = initialState, { type, payload }) => {
     }
 
     case FETCH_POKEMON_SUCCEEDED: {
+      const { details, evolution, species } = payload
       return {
         ...state,
         isLoading: false,
-        details: payload,
+        details,
+        evolution,
+        species,
       }
     }
 
-    case FETCH_POKEMON_EVOLUTION: {
+    case FETCH_POKEMON_FEILED: {
       return {
         ...state,
-        evolution: payload,
+        isLoading: false,
       }
     }
 

@@ -1,17 +1,5 @@
-const getEevolutionList = (chain, list = []) => {
-  const { evolvesTo, ...restInfo } = chain
+export const getCurrentPokemon = state => state.pokemon.details
 
-  list.push({
-    ...restInfo,
-  })
+export const isCurrentPokemonLoading = state => state.pokemon.isLoading
 
-  evolvesTo.forEach(element => getEevolutionList(element, list))
-
-  return list
-}
-
-export const getPokemon = state => state.pokemon.details
-
-export const isPokemonLoading = state => state.pokemon.isLoading
-
-export const getPokemonEvolution = state => getEevolutionList(state.pokemon.evolution)
+export const getCurrentPokemonEvolution = state => state.pokemon.evolution

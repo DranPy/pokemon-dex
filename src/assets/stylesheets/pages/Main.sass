@@ -2,5 +2,37 @@
     display: flex
     
 .pokemon-info
-    flex: 1 0 auto
+    flex: 1 10 auto
     padding: 20px
+    overflow: auto
+    max-height: 100vh
+
+    &__title
+        margin:
+            bottom: 10px
+            top: 15px
+
+    &__base-info
+        display: flex
+
+    &__extra-info
+        padding: 10px 20px
+
+.pokemon-abilities
+
+    &__ability
+        font-size: 14px
+        display: inline-block
+        padding: 5px
+        border-left: 2px solid #aaa
+
+.pokemon-moves
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+    &__move
+        font-size: 14px
+        display: inline-block
+        padding: 5px
+        border-left: 2px solid #aaa

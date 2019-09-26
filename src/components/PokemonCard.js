@@ -1,17 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 const PokemonCard = props => {
   const { pokemon, fetchPokemon, isPokemonLoading } = props
 
-  useEffect(() => fetchPokemon(), [])
+  useEffect(() => {
+    fetchPokemon()
+  }, [])
+
+  const spritesSides = ['frontDefault', 'frontShiny', 'backDefault', 'backShiny']
+  const [spritesSide, setSpritesSide] = useState(spritesSides[0])
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSpritesSide(prevSide => {
+        const index = spritesSides.indexOf(prevSide) + 1
+        const nextIndex = index !== spritesSides.length ? index : 0
+        return spritesSides[nextIndex]
+      })
+    }, 1500)
+
+    return () => clearInterval(intervalId)
+    // eslint-disable-next-line
+  }, [])
 
   return isPokemonLoading ? (
     'Loading...'
   ) : (
     <div className="pokemon-card">
-      <img alt="pokemon images" className="pokemon-card__img" src={pokemon.sprites.frontDefault} />
+      <img alt="pokemon images" className="pokemon-card__img" src={pokemon.sprites[spritesSide]} />
       <h3 className="pokemon-card__name">{pokemon.name}</h3>
       <div className="pokemon-card__id">#{pokemon.id}</div>
       <div className="pokemon-card__types">
