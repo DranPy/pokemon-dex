@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, FC, ChangeEvent } from 'react'
 import Fuse from 'fuse.js'
+import { PokemonDetails } from 'types/pokemon'
 
-const PokemonsList = props => {
+interface PokemonsListProps {
+    onPokemonClick: (pokemonName: string) => void,
+    pokemonsList: PokemonDetails[],
+}
+
+const PokemonsList: FC<PokemonsListProps> = props => {
   const { pokemonsList, onPokemonClick } = props
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState<string>('')
 
-  const getFilteredList = list => {
+  const getFilteredList = (list: PokemonDetails[]): PokemonDetails[] => {
     const options = {
       threshold: 0,
       location: 0,
@@ -16,13 +21,13 @@ const PokemonsList = props => {
       keys: ['name'],
     }
     const fuse = new Fuse(list, options)
-    const filteredList = query ? fuse.search(query) : list
+    const filteredList: PokemonDetails[] = query ? fuse.search(query) : list
 
     return filteredList
   }
-  const handleSearch = event => setQuery(event.target.value)
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => setQuery(event.target.value)
 
-  const filteredList = getFilteredList(pokemonsList)
+  const filteredList: PokemonDetails[] = getFilteredList(pokemonsList)
 
   return (
     <div className="pokemon-list">
@@ -45,11 +50,6 @@ const PokemonsList = props => {
       ))}
     </div>
   )
-}
-
-PokemonsList.propTypes = {
-  pokemonsList: PropTypes.array.isRequired,
-  onPokemonClick: PropTypes.func.isRequired,
 }
 
 export default PokemonsList

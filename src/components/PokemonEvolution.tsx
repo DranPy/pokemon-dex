@@ -1,11 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FC } from 'react'
 
-const PokemonEvolution = props => {
+import { PokemonEvolution } from 'types/pokemon'
+
+interface PokemonEvolutionProps {
+    evolution: PokemonEvolution[],
+    isLoading: boolean,
+}
+
+const PokemonEvolution: FC<PokemonEvolutionProps> = props => {
   const { evolution, isLoading } = props
 
   return isLoading ? (
-    'Loading...'
+    <>
+        Loading...
+    </>
   ) : (
     <>
       <div className="pokemon-evolution">
@@ -41,11 +49,6 @@ const PokemonEvolution = props => {
       </div>
     </>
   )
-}
-
-PokemonEvolution.propTypes = {
-  evolution: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 }
 
 export default PokemonEvolution
