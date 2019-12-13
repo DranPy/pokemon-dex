@@ -3,7 +3,9 @@ import { combineReducers } from 'redux'
 import pokemonsList from './PokemonsList'
 import pokemon from './Pokemon'
 
-export default combineReducers({
+const reducers = combineReducers({
   pokemonsList,
   pokemon,
 })
+
+export default reducers

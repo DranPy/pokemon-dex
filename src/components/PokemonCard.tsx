@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useState, FC } from 'react'
 import cn from 'classnames'
+import { PokemonSprites, PokemonDetails } from 'types/pokemon'
 
-const PokemonCard = props => {
+interface PokemonCardProps {
+    pokemon: PokemonDetails,
+    fetchPokemon: () => void,
+    isPokemonLoading: boolean
+}
+
+const PokemonCard: FC<PokemonCardProps> = (props) => {
   const { pokemon, fetchPokemon, isPokemonLoading } = props
 
   useEffect(() => {
     fetchPokemon()
   }, [])
 
-  const spritesSides = ['frontDefault', 'frontShiny', 'backDefault', 'backShiny']
-  const [spritesSide, setSpritesSide] = useState(spritesSides[0])
+  const spritesSides: PokemonSprites[] = ['frontDefault', 'frontShiny', 'backDefault', 'backShiny']
+  const [spritesSide, setSpritesSide] = useState<PokemonSprites>(spritesSides[0])
   useEffect(() => {
     const intervalId = setInterval(() => {
       setSpritesSide(prevSide => {
-        const index = spritesSides.indexOf(prevSide) + 1
-        const nextIndex = index !== spritesSides.length ? index : 0
-        return spritesSides[nextIndex]
+        const nextIndex: number = spritesSides.indexOf(prevSide) + 1
+        const currentItemIndex: number = nextIndex !== spritesSides.length ? nextIndex : 0
+        return spritesSides[currentItemIndex]
       })
     }, 1500)
 
@@ -25,16 +31,18 @@ const PokemonCard = props => {
   }, [])
 
   return isPokemonLoading ? (
-    'Loading...'
+    <>
+        Loading...
+    </>
   ) : (
     <div className="pokemon-card">
       <img alt="pokemon images" className="pokemon-card__img" src={pokemon.sprites[spritesSide]} />
       <h3 className="pokemon-card__name">{pokemon.name}</h3>
       <div className="pokemon-card__id">#{pokemon.id}</div>
       <div className="pokemon-card__types">
-        {pokemon.types.map(item => (
-          <div className={cn('pokemon-card__type', `-${item.type.name}`)} key={item.type.url}>
-            {item.type.name}
+        {pokemon.types.map(({ type }) => (
+          <div className={cn('pokemon-card__type', `-${type.name}`)} key={type.url}>
+            {type.name}
           </div>
         ))}
       </div>
@@ -52,12 +60,6 @@ const PokemonCard = props => {
       </div>
     </div>
   )
-}
-
-PokemonCard.propTypes = {
-  pokemon: PropTypes.object.isRequired,
-  fetchPokemon: PropTypes.func.isRequired,
-  isPokemonLoading: PropTypes.bool.isRequired,
 }
 
 export default PokemonCard

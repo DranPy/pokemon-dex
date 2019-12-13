@@ -3,11 +3,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import store from 'store'
-import Main from 'pages/Main.js'
+import Main from 'pages/Main'
 
 import 'assets/stylesheets/application.sass'
 
-const App = () => (
+const App: React.FC = () => (
   <Provider store={store}>
     <Router>
       <Switch>

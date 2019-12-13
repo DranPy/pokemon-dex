@@ -25,6 +25,8 @@ instance.interceptors.response.use(
   },
 )
 
+export const normalize = data => humps.camelizeKeys(data)
+
 export const getCanceller = () => CancelToken.source()
 
 export default instance
