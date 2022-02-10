@@ -9,7 +9,7 @@
     "humps": "^2.0.1",
     "husky": "^3.0.5",
     "lodash": "^4.17.15",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "pokeapi-js-wrapper": "^1.1.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
