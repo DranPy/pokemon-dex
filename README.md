@@ -2,5 +2,4 @@
 
 Pokemon dex based on http://pokeapi.co. 
 
-
-master changes
+feature changes
